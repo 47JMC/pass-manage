@@ -10,6 +10,8 @@ const passwordEntrySchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const passwordEntry = mongoose.model("PasswordEntry", passwordEntrySchema);
+const passwordEntry =
+  mongoose.models.PasswordEntry ||
+  mongoose.model("PasswordEntry", passwordEntrySchema);
 
-export default passwordEntry || mongoose.models.PasswordEntry;
+export default passwordEntry;
