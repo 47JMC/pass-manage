@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const passwordEntrySchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
+    id: { type: String, required: true, unique: true },
+    username: { type: String, required: true },
     domain: { type: String, required: true },
     password: { type: String, required: true },
   },
