@@ -1,32 +1,44 @@
 "use client";
 
 function InputForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    // These get() calls now map directly to the 'name' attributes below
-    const name = formData.get("nameInput") as string;
+  const formAction = async (formData: FormData) => {
+    const username = formData.get("usernameInput") as string;
     const domain = formData.get("domainInput") as string;
     const password = formData.get("passInput") as string;
 
-    console.log({ name, domain, password });
-    // Here you can add logic to save the data to a database or state management
+    console.log({ username, domain, password });
+
+    const payload = {
+      username,
+      domain,
+      password,
+    };
+
+    const res = await fetch("/api/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      console.error("Failed to save password:", await res.text());
+    }
   };
 
   return (
     <form
       className="text-lg *:placeholder:font-outfit m-2 flex flex-col gap-3 p-3 rounded-xl bg-slate-900 font-sans"
-      onSubmit={handleSubmit}
+      // 4. We use the 'action' attribute instead of 'onSubmit'
+      action={formAction}
     >
       <div>
-        <label htmlFor="nameInput">Name: </label>
+        <label htmlFor="usernameInput">Username: </label>
         <input
           type="text"
-          id="nameInput"
-          name="nameInput"
-          placeholder="Enter the name here..."
-          className="p-2 m-2 text-center sm:text-left"
+          id="usernameInput"
+          name="usernameInput"
+          placeholder="Enter your username here..."
+          className="p-2 m-2 text-center lg:text-left"
         />
       </div>
       <div>
@@ -36,7 +48,7 @@ function InputForm() {
           id="domainInput"
           name="domainInput"
           placeholder="Example: google.com"
-          className="p-2 m-2 text-center sm:text-left"
+          className="p-2 m-2 text-center lg:text-left"
         />
       </div>
       <div>
@@ -46,7 +58,7 @@ function InputForm() {
           id="passInput"
           name="passInput"
           placeholder="Enter your password here..."
-          className="p-2 m-2 text-center sm:text-left"
+          className="p-2 m-2 text-center lg:text-left"
         />
       </div>
       <button
