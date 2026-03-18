@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import PasswordEntry from "@/models/PasswordEntry";
-import bcrypt from "bcrypt";
+import { encryptPassword } from "@/lib/encrypt";
+import { v4 } from "uuid";
 
 export async function POST(request: NextRequest) {
-  const { name, domain, password } = await request.json();
+  const { username, domain, password } = await request.json();
 
-  if (!name || !domain || !password) {
+  if (!username || !domain || !password) {
     return NextResponse.json(
-      { error: "Missing required fields: name, domain, password" },
+      { error: "Missing required fields: username, domain, password" },
       { status: 400 },
     );
   }
@@ -16,12 +17,18 @@ export async function POST(request: NextRequest) {
   await connectDB();
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const encryptedPassword = encryptPassword(
+      password,
+      process.env.SECRET_KEY!,
+    );
+
+    const generatedId = v4();
 
     const newEntry = new PasswordEntry({
-      name,
+      id: generatedId,
+      username,
       domain,
-      password: hashedPassword,
+      password: encryptedPassword,
     });
 
     await newEntry.save();
