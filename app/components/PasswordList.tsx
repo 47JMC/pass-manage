@@ -7,17 +7,9 @@ type Props = {
 
 function PasswordList({ entries }: Props) {
   return (
-    <div className="m-4 p-3 rounded-lg flex gap-3">
+    <div className="m-4 p-3 rounded-lg flex flex-wrap gap-3">
       {entries.map((entry) => (
-        <PasswordEntry
-          key={entry.id}
-          id={entry.id}
-          username={entry.username}
-          domain={entry.domain}
-          password={entry.password}
-          createdAt={entry.createdAt}
-          updatedAt={entry.updatedAt}
-        />
+        <PasswordEntry key={entry.id} {...entry} />
       ))}
     </div>
   );
