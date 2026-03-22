@@ -1,35 +1,15 @@
 "use client";
 
-function InputForm() {
-  const formAction = async (formData: FormData) => {
-    const username = formData.get("usernameInput") as string;
-    const domain = formData.get("domainInput") as string;
-    const password = formData.get("passInput") as string;
+type Props = {
+  action: (formData: FormData) => Promise<void>;
+};
 
-    console.log({ username, domain, password });
-
-    const payload = {
-      username,
-      domain,
-      password,
-    };
-
-    const res = await fetch("/api/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-      console.error("Failed to save password:", await res.text());
-    }
-  };
-
+function InputForm({ action }: Props) {
   return (
     <form
       className="text-lg *:placeholder:font-outfit m-2 flex flex-col gap-3 p-3 rounded-xl bg-slate-900 font-sans"
       // 4. We use the 'action' attribute instead of 'onSubmit'
-      action={formAction}
+      action={action}
     >
       <div>
         <label htmlFor="usernameInput">Username: </label>
