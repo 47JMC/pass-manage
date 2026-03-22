@@ -33,10 +33,7 @@ export async function POST(request: NextRequest) {
 
     await newEntry.save();
 
-    return NextResponse.json(
-      { message: "Password saved successfully" },
-      { status: 201 },
-    );
+    return NextResponse.json(newEntry, { status: 201 });
   } catch (error) {
     console.error("Error saving password:", error);
     return NextResponse.json(
