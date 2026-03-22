@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import passwordEntry from "@/models/PasswordEntry";
+import { connectDB } from "@/lib/db";
 
 export async function GET() {
   try {
+    connectDB();
     const entries = await passwordEntry.find();
 
     return NextResponse.json(entries, { status: 200 });
