@@ -34,6 +34,21 @@ function Page() {
     setEntriesData((prev) => [...prev, newEntry]);
   };
 
+  const deleteEntry = async (id: string) => {
+    const res = await fetch("/api/delete", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+
+    if (!res.ok) {
+      console.error("Failed to delete entry:", await res.text());
+      return;
+    }
+
+    setEntriesData((prev) => prev.filter((entry) => entry.id !== id));
+  };
+
   useEffect(() => {
     const fetchEntries = async () => {
       const res = await fetch("/api/entries");
@@ -53,7 +68,7 @@ function Page() {
     <div className="text-center p-3 gap-4 m-2">
       <Title />
       <InputForm action={addEntry} />
-      <PasswordList entries={entriesData} />
+      <PasswordList entries={entriesData} onDelete={deleteEntry} />
     </div>
   );
 }
