@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { Entry } from "@/lib/types";
 
-function PasswordEntry({ id, username, domain }: Entry) {
+type Props = Entry & {
+  onDelete: (id: string) => void;
+};
+
+function PasswordEntry({ id, username, domain, onDelete }: Props) {
   const [revealed, setRevealed] = useState(false);
   const [realPassword, setRealPassword] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -61,11 +65,17 @@ function PasswordEntry({ id, username, domain }: Entry) {
 
         <button
           onClick={handleReveal}
-          className="ml-2 text-sm px-2 py-1 bg-emerald-600 rounded hover:bg-emerald-500"
+          className="ml-2 text-sm px-2 py-1 transition-colors bg-emerald-600 rounded hover:bg-emerald-500"
         >
           {loading ? "..." : revealed ? "Hide" : "Show"}
         </button>
       </div>
+      <button
+        className="ml-2 mt-2 text-sm px-2 py-1 transition-colors font-outfit bg-red-500 rounded hover:bg-red-600"
+        onClick={() => onDelete(id)}
+      >
+        Delete
+      </button>
     </div>
   );
 }
