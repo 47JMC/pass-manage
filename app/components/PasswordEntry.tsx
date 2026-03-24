@@ -52,7 +52,7 @@ function PasswordEntry({ id, username, domain, onDelete }: Props) {
   };
 
   return (
-    <div className="bg-indigo-950 p-4 rounded-xl w-64">
+    <div className="bg-indigo-950 p-4 rounded-2xl border-slate-700 w-64 border-2 hover:border-blue-700 transition-all">
       <h3 className="font-outfit font-semibold">Username: {username}</h3>
       <h3 className="font-outfit font-semibold">Domain: {domain}</h3>
 
