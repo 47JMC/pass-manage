@@ -32,7 +32,8 @@ function Page() {
     });
 
     if (!res.ok) {
-      console.error("Failed to save password:", await res.text());
+      console.error("Failed to add entry:", await res.text()); // dev
+      return;
     }
 
     const newEntry = await res.json();
