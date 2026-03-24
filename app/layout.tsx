@@ -15,7 +15,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "PassManager",
+  title: "PassManage",
   description: "Manage your passwords with ease and security.",
 };
 
