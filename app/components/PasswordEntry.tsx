@@ -65,13 +65,13 @@ function PasswordEntry({ id, username, domain, onDelete }: Props) {
 
         <button
           onClick={handleReveal}
-          className="ml-2 text-sm px-2 py-1 transition-colors bg-emerald-600 rounded hover:bg-emerald-500"
+          className="ml-2 text-sm px-2 py-1 transition-colors bg-emerald-600 rounded hover:bg-emerald-700"
         >
           {loading ? "..." : revealed ? "Hide" : "Show"}
         </button>
       </div>
       <button
-        className="ml-2 mt-2 text-sm px-2 py-1 transition-colors font-outfit bg-red-500 rounded hover:bg-red-600"
+        className="ml-2 mt-2 text-sm px-2 py-1 transition-all hover:-translate-y-0.5 font-outfit bg-red-500 rounded hover:bg-red-600"
         onClick={() => onDelete(id)}
       >
         Delete
