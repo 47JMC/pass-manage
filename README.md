@@ -22,7 +22,8 @@ function deriveSecretKey(masterPassword: string): string {
     .toString("hex");
 }
 
-const secretKey = deriveSecretKey("user-master-password");```
+const secretKey = deriveSecretKey("user-master-password");
+```
 
 # Deploy
 
