@@ -14,6 +14,11 @@ function Page() {
     const domain = formData.get("domainInput") as string;
     const password = formData.get("passInput") as string;
 
+    if (!username || !domain || !password) {
+      console.error("All fields are required.");
+      return;
+    }
+
     const payload = {
       username,
       domain,
