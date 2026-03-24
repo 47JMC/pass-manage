@@ -27,6 +27,6 @@ const secretKey = deriveSecretKey("user-master-password");
 
 # Deploy
 
-`npm install` - Install all the packages
-`npm build` - Build the production app
-`npm start` - Start the app
+`npm install` -> Install all the packages.
+`npm build` - >Build the production app.
+`npm start` -> Start the app.
